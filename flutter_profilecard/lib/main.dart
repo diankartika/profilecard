@@ -1,5 +1,3 @@
-// bang sorry ini banyak gpt soalnya kepepet mau kelas basjep, nanti aku remake ulang
-
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
@@ -116,7 +114,7 @@ class ProfileCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                      'Lagi nyoba ke mob apps keknya enak yh, lagi agak eneg sama html sowwy',
+                      'Mobile App Developer',
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.7),
                         fontSize: 14,
