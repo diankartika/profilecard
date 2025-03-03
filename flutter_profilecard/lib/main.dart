@@ -8,10 +8,54 @@ void main() {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.black,
-        body: Center(child: ProfileCard()),
+        body: Center(child: ProfileCardStack()),
       ),
     ),
   );
+}
+
+class ProfileCardStack extends StatefulWidget {
+  @override
+  _ProfileCardStackState createState() => _ProfileCardStackState();
+}
+
+class _ProfileCardStackState extends State<ProfileCardStack> {
+  bool showMeme = false; // To track which card is visible
+
+  void toggleCard() {
+    setState(() {
+      showMeme = !showMeme; // Toggle between cards
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: toggleCard,
+      child: Stack(
+        alignment: Alignment.center, // ✅ Ensure both cards stay centered
+        children: [
+          // Meme Card (Second Card)
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 500),
+            transitionBuilder:
+                (widget, animation) =>
+                    FadeTransition(opacity: animation, child: widget),
+            child: showMeme ? MemeCard() : SizedBox(),
+          ),
+
+          // Profile Card (First Card)
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 500),
+            transitionBuilder:
+                (widget, animation) =>
+                    FadeTransition(opacity: animation, child: widget),
+            child: showMeme ? SizedBox() : ProfileCard(),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class ProfileCard extends StatelessWidget {
@@ -204,6 +248,64 @@ class ProfileCard extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+// Second Card - Meme
+class MemeCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GlassCard(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'When you debug your code...',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.asset(
+              'assets/cat_meme.jpg', // Ensure this image is in the assets folder
+              width: 250,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Reusable Glass Card Component
+class GlassCard extends StatelessWidget {
+  final Widget child;
+  const GlassCard({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          width: 320,
+          height: 450,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.white.withOpacity(0.2)),
+          ),
+          child: child,
+        ),
+      ),
     );
   }
 }
