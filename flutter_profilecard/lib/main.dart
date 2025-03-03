@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:video_player/video_player.dart';
 
 void main() {
   runApp(
@@ -252,8 +253,32 @@ class ProfileCard extends StatelessWidget {
   }
 }
 
-// Second Card - Meme
-class MemeCard extends StatelessWidget {
+// Meme Card with Video
+class MemeCard extends StatefulWidget {
+  @override
+  _MemeCardState createState() => _MemeCardState();
+}
+
+class _MemeCardState extends State<MemeCard> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.asset('assets/kusing.mp4')
+      ..initialize().then((_) {
+        setState(() {}); // Refresh widget after initialization
+        _controller.setLooping(true); // Loop the video
+        _controller.play(); // Auto-play the video
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose(); // Clean up controller
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GlassCard(
@@ -270,14 +295,15 @@ class MemeCard extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 12),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              'assets/cat_meme.jpg', // Ensure this image is in the assets folder
-              width: 250,
-              fit: BoxFit.cover,
-            ),
-          ),
+          _controller.value.isInitialized
+              ? ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                ),
+              )
+              : CircularProgressIndicator(color: Colors.greenAccent),
         ],
       ),
     );
