@@ -75,13 +75,6 @@ class ProfileCard extends StatelessWidget {
                       horizontal: 16.0,
                       vertical: 10,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(Icons.arrow_back_ios, color: Colors.white),
-                        Icon(Icons.more_vert, color: Colors.white),
-                      ],
-                    ),
                   ),
 
                   // Profile Picture with Neon Border
@@ -94,7 +87,7 @@ class ProfileCard extends StatelessWidget {
                     ),
                     child: ClipOval(
                       child: Image.asset(
-                        'assets/profile.png', // Pastikan gambar ada di folder assets
+                        'assets/profile.png',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -112,19 +105,35 @@ class ProfileCard extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text(
-                      'Mobile App Developer',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.7),
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.center, // Biar keterangan di tengah
+                    child: Column(
+                      children: [
+                        Text(
+                          'Mobile App Developer',
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.7),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign:
+                              TextAlign.center, // Biar keterangan di tengah
+                        ),
+                        SizedBox(height: 15), // Nambahin jarak dikit antar teks
+                        Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.7),
+                            fontSize: 11,
+                          ),
+                          textAlign:
+                              TextAlign.center, // Biar keterangan di tengah
+                        ),
+                      ],
                     ),
                   ),
-
-                  SizedBox(height: 16),
+                  SizedBox(height: 22),
 
                   // Social Icons (Clickable)
                   Row(
@@ -135,9 +144,14 @@ class ProfileCard extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor: Colors.black,
                           radius: 22,
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                              8,
+                            ), // Beri padding agar gambar tidak mepet
+                            child: Image.asset(
+                              'assets/instagram.png',
+                              fit: BoxFit.contain,
+                            ),
                           ), // Icon Instagram
                         ),
                       ),
@@ -147,9 +161,14 @@ class ProfileCard extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor: Colors.black,
                           radius: 22,
-                          child: Icon(
-                            Icons.code,
-                            color: Colors.white,
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                              8,
+                            ), // Beri padding agar gambar tidak mepet
+                            child: Image.asset(
+                              'assets/github.png',
+                              fit: BoxFit.contain,
+                            ),
                           ), // Icon GitHub
                         ),
                       ),
