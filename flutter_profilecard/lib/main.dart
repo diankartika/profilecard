@@ -18,6 +18,7 @@ class ProfileCard extends StatelessWidget {
   // URL Sosial Media
   final Uri instagramUrl = Uri.parse("https://instagram.com/putridiantika_");
   final Uri githubUrl = Uri.parse("https://github.com/diankartika");
+  final Uri whatsappUrl = Uri.parse("https://wa.me/6282237392457");
 
   void _launchURL(Uri url) async {
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
@@ -157,8 +158,9 @@ class ProfileCard extends StatelessWidget {
 
                   SizedBox(height: 20),
 
-                  // Follow Button
+                  // Chat Button
                   ElevatedButton(
+                    onPressed: () => _launchURL(whatsappUrl),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -169,9 +171,8 @@ class ProfileCard extends StatelessWidget {
                       ),
                       backgroundColor: Colors.greenAccent,
                     ),
-                    onPressed: () {},
                     child: Text(
-                      'Follow',
+                      'Chat Me!',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
